@@ -10,7 +10,8 @@ data class Post(
     val replyOwnerId: Int,
     val replyPostId: Int,
     val friendsOnly: Boolean,
-    val likes: Int,
+    val likes: Likes,
+    val comments: Comments,
     val canPin: Boolean,
     val isPinned: Boolean
 )
@@ -46,11 +47,18 @@ object WallSeervice {
                 posts[index] = newPost.copy(
                     date = post.date,
                     likes = post.likes,
-                    fromId = post.fromId
+                    fromId = post.fromId,
+                    comments = post.comments
                 )
                 return true
             }
         }
         return false
+    }
+
+    //сброс
+    fun clear() {
+        posts = emptyArray()
+        postsId = 1
     }
 }

@@ -1,100 +1,73 @@
+import org.junit.Before
 import org.junit.Test
+import ru.netology.Comments
+import ru.netology.Likes
 import ru.netology.Post
 import ru.netology.WallSeervice
-import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 
 class WallSeerviceTest {
 
+ @Before
+ fun clearBeforeTest() {
+  WallSeervice.clear()
+ }
+
+ //минус дублирования кода
+ private fun createPostForTest(
+  id: Int = 0,
+  text: String = "text",
+  likes: Likes = Likes(0, false, true, true),
+  comments: Comments = Comments(0, true, true, false, false)
+ ): Post {
+  return Post(
+   id = id,
+   ownerId = 5,
+   fromId = 23,
+   createdBy = 26,
+   date = 8052025,
+   text = text,
+   replyOwnerId = 20,
+   replyPostId = 4,
+   friendsOnly = true,
+   likes = likes,
+   comments = comments,
+   canPin = true,
+   isPinned = true
+  )
+ }
+
 @Test
  fun add() {
- val post1 = Post(
-  1,
-  5,
-  23,
-  26,
-  date = "08.05.2025".length,
-  "text",
-  20,
-  4,
-  true,
-  18,
-  canPin = true,
-  isPinned = true
- )
+
+ val post1 = createPostForTest()
  val result = WallSeervice.add(post1)
- assertNotEquals(post1.id, result.id)
+ assertNotEquals(0, result.id)
  }
 
 @Test
  fun updateTrue() {
- val post1 = Post(
-  1,
-  5,
-  23,
-  26,
-  date = "08.05.2025".length,
-  "text",
-  20,
-  4,
-  true,
-  18,
-  canPin = true,
-  isPinned = true
+
+ val post = WallSeervice.add(createPostForTest())
+
+ val updatePost = WallSeervice.update(
+  createPostForTest(
+   id = post.id,
+   text = "update"
+  )
  )
 
- val idPost = WallSeervice.add(post1).id
- val post2 = Post(
-  idPost,
-  5,
-  23,
-  26,
-  date = "08.05.2025".length,
-  "text",
-  20,
-  4,
-  true,
-  18,
-  canPin = true,
-  isPinned = true
- )
- val result = WallSeervice.update(post2)
- assertEquals(true, result)
+ assertTrue(updatePost)
  }
 
  @Test
  fun updateFalse() {
-  val post1 = Post(
-   1,
-   5,
-   23,
-   26,
-   date = "08.05.2025".length,
-   "text",
-   20,
-   4,
-   true,
-   18,
-   canPin = true,
-   isPinned = true
-  )
 
-  val idPost = WallSeervice.add(post1).id
-  val post2 = Post(
-   idPost + 1,
-   5,
-   23,
-   26,
-   date = "08.05.2025".length,
-   "text",
-   20,
-   4,
-   true,
-   18,
-   canPin = true,
-   isPinned = true
-  )
-  val result = WallSeervice.update(post2)
-  assertEquals(false, result)
+  WallSeervice.add(createPostForTest())
+  val updatePost = WallSeervice.update(createPostForTest(id = 12345))
+
+  assertFalse(updatePost)
  }
 }
