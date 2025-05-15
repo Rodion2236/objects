@@ -3,17 +3,18 @@ package ru.netology
 data class Post(
     val id: Int,
     val ownerId: Int,
-    val fromId: Int,
-    val createdBy: Int,
+    val fromId: Int? = null,
+    val createdBy: Int? = null,
     val date: Int,
-    val text: String,
-    val replyOwnerId: Int,
-    val replyPostId: Int,
-    val friendsOnly: Boolean,
-    val likes: Likes,
-    val comments: Comments,
-    val canPin: Boolean,
-    val isPinned: Boolean
+    val text: String?,
+    val replyOwnerId: Int? = null,
+    val replyPostId: Int? = null,
+    val friendsOnly: Boolean = false,
+    val likes: Likes? = null,
+    val comments: Comments? = null,
+    val canPin: Boolean = false,
+    val isPinned: Boolean = false,
+    val attachments: Array<Attachments> = emptyArray()
 )
 
 data class Likes(
@@ -31,7 +32,7 @@ data class Comments(
     val canOpen: Boolean
 )
 
-object WallSeervice {
+object WallService {
 
     private var posts = emptyArray<Post>()
     private var postsId = 1

@@ -1,9 +1,6 @@
 import org.junit.Before
 import org.junit.Test
-import ru.netology.Comments
-import ru.netology.Likes
-import ru.netology.Post
-import ru.netology.WallSeervice
+import ru.netology.*
 import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
@@ -12,7 +9,7 @@ class WallSeerviceTest {
 
  @Before
  fun clearBeforeTest() {
-  WallSeervice.clear()
+  WallService.clear()
  }
 
  //минус дублирования кода
@@ -43,16 +40,16 @@ class WallSeerviceTest {
  fun add() {
 
  val post1 = createPostForTest()
- val result = WallSeervice.add(post1)
+ val result = WallService.add(post1)
  assertNotEquals(0, result.id)
  }
 
 @Test
  fun updateTrue() {
 
- val post = WallSeervice.add(createPostForTest())
+ val post = WallService.add(createPostForTest())
 
- val updatePost = WallSeervice.update(
+ val updatePost = WallService.update(
   createPostForTest(
    id = post.id,
    text = "update"
@@ -65,8 +62,8 @@ class WallSeerviceTest {
  @Test
  fun updateFalse() {
 
-  WallSeervice.add(createPostForTest())
-  val updatePost = WallSeervice.update(createPostForTest(id = 12345))
+  WallService.add(createPostForTest())
+  val updatePost = WallService.update(createPostForTest(id = 12345))
 
   assertFalse(updatePost)
  }
