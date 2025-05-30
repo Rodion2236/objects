@@ -1,4 +1,4 @@
-package ru.netology
+package ru.netology.post
 
 sealed class Attachments(val type: String)
 

@@ -1,7 +1,7 @@
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test
-import ru.netology.*
+import ru.netology.post.*
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
